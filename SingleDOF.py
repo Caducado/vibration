@@ -1,7 +1,10 @@
 import numpy as np 
 import matplotlib.pyplot as plt
+import logging
 
 
+
+logging.basicConfig(level=logging.INFO)
 class system():
     def __init__(self, mass, stiffness, damping=.0, position=1, velocity=.0) -> None:
         self.gravity = 9.8069
@@ -14,23 +17,30 @@ class system():
         self.w_n = np.sqrt(self.k/self.m)
         self.f_n = np.sqrt(self.k/self.m)/(2*np.pi)
     
-    def response(self, T: float=100.0, N:int=1000) -> float:
+    def response(self, T: float=1000.0, N:int=10000) -> float:
         t = np.linspace(0, T, N)
-        if self.c is .0:
+        self.zeta = self.c/(2*self.m*self.w_n)
+        logging.info(f'zeta is {self.zeta}')
+        if self.zeta == .0:
             x = self.x_0*np.cos(self.w_n*t) + (self.v_0/self.w_n)*np.sin(self.w_n*t)
+        
+        elif self.zeta < 1.0:
+            C1 = self.x_0
+            C2 = (self.v_0 + self.zeta*self.w_n+self.x_0)/(np.sqrt(1-self.zeta**2)*self.w_n)
+            x = np.exp(-self.zeta*self.w_n*t)*(C1*np.cos(np.sqrt(1-self.zeta**2)*self.w_n*t) + C2*np.sin(np.sqrt(1-self.zeta**2)*self.w_n*t))
+        elif self.zeta == 1.0:
+            pass            
         else:
-            self.zeta = self.c/(2*self.m*self.w_n)
-            if self.zeta > 1.0:
-                elif self.zeta == 1.0
+            pass
 
+                
         return t, x
     
-    def plot_response(self, T: float=100.0, N:int=1000, fig) -> None:
+    def plot_response(self, T: float=1000.0, N:int=10000) -> None:
         t, x = self.response(T, N)
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.plot(t, x)
-        ax.show()
-        return fig
+        plt.figure()
+        plt.plot(t, x)
+        plt.show()
+        return 
   
     
