@@ -17,7 +17,7 @@ class system():
         self.w_n = np.sqrt(self.k/self.m)
         self.f_n = np.sqrt(self.k/self.m)/(2*np.pi)
     
-    def response(self, T: float=1000.0, N:int=10000) -> float:
+    def response(self, T: float=100.0, N:int=10000) -> float:
         t = np.linspace(0, T, N)
         self.zeta = self.c/(2*self.m*self.w_n)
         logging.info(f'zeta is {self.zeta}')
@@ -36,7 +36,7 @@ class system():
                 
         return t, x
     
-    def plot_response(self, T: float=1000.0, N:int=10000) -> None:
+    def plot_response(self, T: float=100.0, N:int=10000) -> None:
         t, x = self.response(T, N)
         plt.figure()
         plt.plot(t, x)
