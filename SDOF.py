@@ -4,6 +4,7 @@ import logging
 
 
 
+
 logging.basicConfig(level=logging.INFO)
 class system():
     def __init__(self, mass, stiffness, damping=.0, position=1, velocity=.0) -> None:
@@ -47,4 +48,6 @@ class system():
         plt.show()
         return 
   
-    
+
+
+ 
