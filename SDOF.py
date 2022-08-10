@@ -17,6 +17,9 @@ class system():
         self.forces = []
         self.w_n = np.sqrt(self.k/self.m)
         self.f_n = np.sqrt(self.k/self.m)/(2*np.pi)
+        self.zeta = self.c/(2*self.m*self.w_n)
+        self.w_d = np.sqrt(1-self.zeta**2)*self.w_n
+        self.phi_0 = np.arctan(-(self.v_0 + self.zeta*self.w_n+self.x_0)/(np.sqrt(1-self.zeta**2)*self.w_n)/self.x_0)
     
     def response(self, T: float=100.0, N:int=10000) -> float:
         t = np.linspace(0, T, N)
@@ -49,5 +52,9 @@ class system():
         return 
   
 
-
- 
+    """ def x_t(self, t):
+        C1 = self.x_0
+        C2 = (self.v_0 + self.zeta*self.w_n+self.x_0)/(np.sqrt(1-self.zeta**2)*self.w_n)
+        X_0 = np.sqrt(C1**2 + C2**2)
+        xt = X_0*np.exp(-self.zeta*self.w_n*t)*np.cos(self.w_d*t-self.phi_0)
+        return xt """
