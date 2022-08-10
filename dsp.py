@@ -40,9 +40,19 @@ class dsp():
         coefs, _, f, t, *_ = gpy.wsst(x, fs=fs, 
                                            freq_limits=[0, fs/2],
                                            boundary='zeros',
-                                           window='hamming', 
                                            voices_per_octave=16,
+                                           remove_mean=True,
                                            method='full')
+        return 20*np.log10(coefs/np.max(coefs)), f, t
+
+    def CWT(x, fs=1.0):
+        coefs, _, f, t,*_ = gpy.cwt(x, fs=fs,
+                                    freq_limits=[0, fs/2],
+                                    boundary='zeros',
+                                    voices_per_octave=8,
+                                    remove_mean=True,
+                                    method='full')
+
         return 20*np.log10(coefs/np.max(coefs)), f, t
         
     def plot_time(self, t, x):
