@@ -15,9 +15,9 @@ class dsp():
         return f, X
     
     def PSD(self, x, fs=1.0):
-        f, Pxx = signal.welch(x, fs=fs, nperseg=x.length,
+        f, Pxx = signal.welch(x, fs=fs, nperseg=x.size,
                                  noverlap=0,
-                                 nfft=x.length,
+                                 nfft=x.size,
                                  detrend='linear',
                                  scaling='density',
                                  axis=-1,
