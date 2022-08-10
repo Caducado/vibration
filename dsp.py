@@ -1,16 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import logging
 import scipy.signal as signal
 import scipy.fftpack as fftpack
 import ghostipy as gpy
 
-
-
 class dsp():
     def __init__(self) -> None:
         pass
-        
     
     def FFT(self, t, x):
         X = fftpack.fft(x)
@@ -49,9 +45,6 @@ class dsp():
                                            method='full')
         return 20*np.log10(coefs/np.max(coefs)), f, t
         
-
-
-
     def plot_time(self, t, x):
         plt.figure()
         plt.plot(t, x)
@@ -70,6 +63,3 @@ class dsp():
         plt.show()
         return
     
-    
-        
-   
